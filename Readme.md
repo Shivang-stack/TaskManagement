@@ -33,8 +33,8 @@ This is a simple web application for managing tasks, built using Java and a REST
 
 2. **Frontend:**
    - **Thymeleaf:**
-    - A modern server-side Java template engine.
-    - Used for server-side rendering of HTML templates.
+        - A modern server-side Java template engine.
+        - Used for server-side rendering of HTML templates.
 
 3. **Database:**
    - Uses MySQL as the relational database to store tasks.

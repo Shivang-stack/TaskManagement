@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Management</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="container">
+        <h1>Task Management</h1>
+
+        <form id="taskForm">
+            <label for="taskName"><b>Task Name:</b></label><br/>
+            <input type="text" id="taskName" required><br/><br/>
+            
+            <label for="taskDescription"><b>Task Description:</b></label><br/>
+            <input type="text" id="taskDescription" required><br/><br/>
+
+            <label for="completed"><b>Completed:</b></label>
+            <input type="checkbox" id="completed"><br/><br/>
+
+            <button type="button" onclick="addTask()">Add Task</button>
+        </form>
+    </div>
+    <div id="container">
+        <h2>Task List</h2>
+        <table id="taskTable">
+            <thead>
+                <tr>
+                    <th>Task Name</th>
+                    <th>Description</th>
+                    <th>Completed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody id="taskList"></tbody>
+        </table>
+    </div>
+    <!-- Update Task Popup -->
+    <div id="updateTaskPopup">
+        <h3>Update Task</h3>
+        <input type="text" id="updateTaskId" disabled><br/><br/>
+
+        <label for="updateTaskName">Task Name:</label><br/>
+        <input type="text" id="updateTaskName" required><br/>
+        
+        <label for="updateTaskDescription">Task Description:</label><br/>
+        <input type="text" id="updateTaskDescription" required><br/>
+
+        <label for="updateCompleted">Completed:</label><br/>
+        <input type="checkbox" id="updateCompleted"><br/><br/>
+
+        <button type="button" onclick="updateTask()">Update Task</button>
+        <button type="button" onclick="closeUpdatePopup()">Close</button>
+    </div>
+
+    <script>
+        async function addTask() {
+            const taskName = document.getElementById('taskName').value;
+            const taskDescription = document.getElementById('taskDescription').value;
+            const completed = document.getElementById('completed').checked;
+
+            const response = await fetch('/addtask', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    task_name: taskName,
+                    description: taskDescription,
+                    compeleted: completed
+                }),
+            });
+
+            if (response.ok) {
+                const task = await response.json();
+                displayTask(task);
+            } else {
+                alert('Failed to add task');
+            }
+        }
+
+        async function fetchAndDisplayTasks() {
+            const taskList = document.getElementById('taskList');
+            // Clear existing tasks
+            taskList.innerHTML = '';
+            const response = await fetch('/tasks');
+            const tasks = await response.json();
+            tasks.forEach(displayTask);
+        }
+
+        function displayTask(task) {
+        const taskList = document.getElementById('taskList');
+        const taskItem = document.createElement('tr');
+        taskItem.innerHTML = `
+            <td>${task.task_name}</td>
+            <td>${task.description}</td>
+            <td>${task.completed ? 'Yes' : 'No'}</td>
+            <td>
+                <button onclick="openUpdatePopup('${task.id}', '${task.task_name}', '${task.description}', ${task.completed})">Update</button>
+                <button onclick="deleteTask('${task.id}')">Delete</button>
+            </td>
+        `;
+        taskList.appendChild(taskItem);
+        }
+
+        // Function to open the update task popup
+        function openUpdatePopup(id, name, description, completed) {
+            document.getElementById('updateTaskName').value = name;
+            document.getElementById('updateTaskDescription').value = description;
+            document.getElementById('updateCompleted').checked = completed;
+            document.getElementById('updateTaskPopup').style.display = 'block';
+            document.getElementById('updateTaskId').value = id;
+        }
+
+        // Function to close the update task popup
+        function closeUpdatePopup() {
+            document.getElementById('updateTaskPopup').style.display = 'none';
+        }
+
+        // Function to update the task
+        async function updateTask() {
+            const id = document.getElementById('updateTaskId').value;
+            const taskName = document.getElementById('updateTaskName').value;
+            const taskDescription = document.getElementById('updateTaskDescription').value;
+            const completed = document.getElementById('updateCompleted').checked;
+
+            const response = await fetch(`/update`, {
+                method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    id:id,
+                    task_name: taskName,
+                    description: taskDescription,
+                    compeleted: completed
+                }),
+            });
+
+            if (response.ok) {
+                // Update the task in the UI
+                closeUpdatePopup();
+                await fetchAndDisplayTasks(); // Refresh the task list
+            } else {
+                alert('Failed to update task');
+            }
+        }
+
+        // Function to delete the task
+        async function deleteTask(id) {
+            const response = await fetch(`/delete/${id}`, {
+                method: 'DELETE',
+            });
+
+            if (response.ok) {
+                await fetchAndDisplayTasks(); // Refresh the task list
+            } else {
+                alert('Failed to delete task');
+            }
+        }
+
+        // Fetch tasks when the page loads
+        fetchAndDisplayTasks();
+    </script>
+</body>
+</html>

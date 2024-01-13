@@ -12,15 +12,29 @@ This is a simple web application for managing tasks, built using Java and a REST
 ## Technical Specifications
 
 1. **Backend:**
-   - Built with Java.
-   - Uses Spring Boot, a Java framework for building RESTful APIs.
-   - Utilizes a relational database (MySQL) to store tasks.
-   - Implements CRUD operations using appropriate HTTP methods (POST, GET, PUT, DELETE).
-   - Ensures proper error handling and validation for inputs.
+    - **Java:**
+        - The primary programming language used for backend development.   
+
+    - **Spring Boot:**
+        - A Java-based framework used for building the RESTful API.
+        - Simplifies the development of production-ready applications.
+
+    - **Spring Data JPA:**
+        - Part of the larger Spring Data project, simplifying data access using JPA.
+        - Enables easy implementation of data access layers.
+
+    - **Lombok:**
+        - Library to reduce boilerplate code.
+        - Annotations like `@Data`, `@AllArgsConstructor`, `@NoArgsConstructor` are used for concise code.
+
+    - **MySQL Connector:**
+        - Java-based driver for connecting to MySQL databases.
+        - Used for establishing a connection between the Spring Boot application and the MySQL database.
 
 2. **Frontend:**
-   - Simple webpage using HTML/CSS.
-   - Accesses the backend API to perform CRUD operations on tasks.
+   - **Thymeleaf:**
+    - A modern server-side Java template engine.
+    - Used for server-side rendering of HTML templates.
 
 3. **Database:**
    - Uses MySQL as the relational database to store tasks.

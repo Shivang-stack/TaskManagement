@@ -99,5 +99,5 @@ public class IndexController {
 
 5. **Unit Tests:**
    - Run the provided unit tests to ensure the functionality of the API.
+   - Run class AssignmentApplicationTests
 
-Feel free to customize the application according to your needs. Enjoy managing your tasks with this simple web application!

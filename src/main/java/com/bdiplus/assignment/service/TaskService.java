@@ -33,7 +33,7 @@ public class TaskService {
         Task existingTask=respository.findById(task.getId()).orElse(null);
         existingTask.setTask_name(task.getTask_name());
         existingTask.setDescription(task.getDescription());
-        existingTask.setCompeleted(task.isCompeleted());
+        existingTask.setCompleted(task.isCompleted());
         return respository.save(existingTask);
     }
 }

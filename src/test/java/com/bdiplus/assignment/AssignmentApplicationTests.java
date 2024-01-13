@@ -48,7 +48,7 @@ class AssignmentApplicationTests {
         assertEquals(task.getId(), savedTask.getId());
         assertEquals(task.getTask_name(), savedTask.getTask_name());
         assertEquals(task.getDescription(), savedTask.getDescription());
-        assertEquals(task.isCompeleted(), savedTask.isCompeleted());
+        assertEquals(task.isCompleted(), savedTask.isCompleted());
 
         verify(repository, times(1)).save(any(Task.class));
     }
@@ -107,7 +107,7 @@ class AssignmentApplicationTests {
         assertEquals(updatedTask.getId(), result.getId());
         assertEquals(updatedTask.getTask_name(), result.getTask_name());
         assertEquals(updatedTask.getDescription(), result.getDescription());
-        assertEquals(updatedTask.isCompeleted(), result.isCompeleted());
+        assertEquals(updatedTask.isCompleted(), result.isCompleted());
 
         verify(repository, times(1)).findById(1);
         verify(repository, times(1)).save(any(Task.class));

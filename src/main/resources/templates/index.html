@@ -17,7 +17,7 @@
             <label for="taskDescription"><b>Task Description:</b></label><br/>
             <input type="text" id="taskDescription" required><br/><br/>
 
-            <label for="completed"><b>Completed:</b></label>
+            <label for="ecompleted"><b>Completed:</b></label>
             <input type="checkbox" id="completed"><br/><br/>
 
             <button type="button" onclick="addTask()">Add Task</button>
@@ -69,7 +69,7 @@
                 body: JSON.stringify({
                     task_name: taskName,
                     description: taskDescription,
-                    compeleted: completed
+                    completed: completed
                 }),
             });
 
@@ -96,7 +96,7 @@
         taskItem.innerHTML = `
             <td>${task.task_name}</td>
             <td>${task.description}</td>
-            <td>${task.completed ? 'Yes' : 'No'}</td>
+            <td>${task.completed == true ? 'Yes' : 'No'}</td>
             <td>
                 <button onclick="openUpdatePopup('${task.id}', '${task.task_name}', '${task.description}', ${task.completed})">Update</button>
                 <button onclick="deleteTask('${task.id}')">Delete</button>
@@ -135,7 +135,7 @@
                     id:id,
                     task_name: taskName,
                     description: taskDescription,
-                    compeleted: completed
+                    completed: completed
                 }),
             });
 

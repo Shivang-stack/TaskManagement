@@ -19,5 +19,5 @@ public class Task {
     private int id;
     private String task_name;
     private String description;
-    private boolean compeleted;    
+    private boolean completed;    
 }

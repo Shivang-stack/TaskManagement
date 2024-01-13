@@ -1,6 +1,13 @@
 # Task Management Web Application
 
 This is a simple web application for managing tasks, built using Java and a RESTful API. The application supports basic CRUD operations (Create, Read, Update, Delete) for tasks. Below are the technical specifications and instructions on how to use the application.
+## Demo
+
+### Index Page
+![image](https://github.com/Shivang-stack/TaskManagement/assets/56068903/27e55a3b-0fc5-4582-9ebd-32528e144070)
+
+### Update Task Pop up
+![image](https://github.com/Shivang-stack/TaskManagement/assets/56068903/429db199-db91-47ae-be39-d8ff15b740d8)
 
 ## Technical Specifications
 
@@ -86,6 +93,9 @@ public class IndexController {
 
 4. **API Documentation:**
    - Access Swagger UI at `http://localhost:8080/swagger-ui.html` for detailed API documentation.
+
+     ![image](https://github.com/Shivang-stack/TaskManagement/assets/56068903/6918f71d-022b-43ec-8843-601d63ec4ea2)
+
 
 5. **Unit Tests:**
    - Run the provided unit tests to ensure the functionality of the API.
